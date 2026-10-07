@@ -55,35 +55,22 @@ Full memo: [`runs/main100k/memo.md`](runs/main100k/memo.md).
 
 ## Architecture
 
-```
-spotify_reviews_18months.csv (660,622 rows, SHA-256 verified)
-   │
-   ├─ tools/make_analysis_set.py ──► data/analysis_100k.csv   [CODE] deterministic sample
-   │
-   ▼
-1. PREPARE      [CODE]  read all rows, row hashes, empty-text quarantine,
-                        exact-text grouping, pending-work queue
-   ▼
-2. ENRICH       [MODEL: Jev jev-1.13.0, enrich-b1]  10 reviews/request, rubric sent once
-                [CODE]  schema validation, 1 retry then quarantine, evidence quote
-                        (exact substring), entity match, atomic save per request
-   ▼
-3. VERIFY       [MODEL: Jev, verify-p1]  separately worded, 1% random sample,
-                        never sees the first answer
-                [CODE]  compares, saves disagreements
-   ▼
-4. GROUP        [CODE]  membership: one issue per topic, deterministic
-                [MODEL: Haiku, group-p1]  names/describes issues from bounded examples;
-                        code rejects invented IDs and never lets it touch membership
-   ▼
-5. RANK         [CODE]  priority_score = complaint_count × mean_severity = severity_sum
-                        ties by issue_id. No model.
-   ▼
-6. RECOMMEND    [MODEL: Haiku, memo-p2]  reads ONLY ranking + bounded evidence pack
-                [CODE]  validates every claim ID, review ID and number; rejects derived figures
-   ▼
-   db/load_db.py ──► Postgres (Supabase) ──► Next.js backend ──► deployed dashboard
-```
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/architecture-dark.svg">
+  <img alt="Six-stage pipeline. Code owns record accounting, caching, validation and arithmetic; models read language only. Each stage saves an inspectable artifact. The saved results load into Postgres, which a Next.js backend serves to a public dashboard." src="docs/architecture-light.svg" width="100%">
+</picture>
+
+<sub>Regenerate with `python3 tools/make_architecture_svg.py` — both themes come from one source of truth.</sub>
+
+### Why each model call exists, and what code does instead
+
+| Stage | Why a model is needed | What code does instead / around it |
+|---|---|---|
+| **Enrich** | Judging topic, intent and severity means reading messy, multilingual, often ungrammatical customer language. No rule set does this. | Code groups duplicate texts, validates the schema, extracts the evidence quote as an exact substring, matches entities by term, applies the contract's severity rules, caches, and saves after every request. |
+| **Verify** | Checking a label requires the same language judgment as making one. A second role with different wording gives an independent read. | Code picks the sample deterministically, compares the two answers field by field, and records every disagreement. The model never sees the first answer. |
+| **Group (naming)** | Turning a topic bucket into a product-legible issue name needs language judgment. | Code assigns membership deterministically — one issue per primary topic — so ranking never depends on a model, and rejects any issue ID the model invents. |
+| **Recommend** | Weighing volume against severity and writing the argument is the one genuinely generative task. | Code computes every number, hands the model only the ranked table and a bounded evidence pack, then validates each cited claim ID, review ID and figure, rejecting derived values like "40% higher". |
+| **Prepare / Rank** | **No model.** Counting, hashing, filtering, sorting and arithmetic are deterministic. | Pure code, so the ranking regenerates identically and offline. |
 
 **The division of labour:** the model reads messy language; code owns record accounting, arithmetic,
 caching, validation and every number that reaches the memo. Code decides what runs next at every

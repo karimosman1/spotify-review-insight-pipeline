@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 1114" width="980" height="1114" role="img" aria-label="Six-stage pipeline: code owns record accounting, caching, validation and arithmetic while models read language only; each stage saves an inspectable artifact, and the saved results load into Postgres, served by a Next.js backend to a public dashboard.">
+<rect width="980" height="1114" fill="#ffffff"/>
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L9,5 L0,9 z" fill="#52514e"/></marker><marker id="arm" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L9,5 L0,9 z" fill="#76756f"/></marker></defs>
+<g font-family="ui-sans-serif,-apple-system,Segoe UI,Helvetica,Arial,sans-serif">
+<rect x="20" y="24" width="598" height="70" rx="8" fill="#f4f4f1" stroke="#d6d5d0"/>
+<text x="36" y="48" font-size="13" font-weight="600" fill="#0b0b0b">spotify_reviews_18months.csv — 660,622 rows, SHA-256 verified</text>
+<text x="36" y="68" font-size="11.5" fill="#52514e">full file profiled and accounted for; declared scope sampled by lowest SHA-256(seed + review_id)</text>
+<text x="36" y="85" font-size="11.5" fill="#52514e">→ data/analysis_100k.csv — 100,013 rows (100,000 nonempty + all 13 empty)</text>
+<rect x="20" y="128" width="598" height="96" rx="8" fill="#fcfcfb" stroke="#d6d5d0"/>
+<text x="36" y="151" font-size="13.5" font-weight="700" fill="#0b0b0b">1 · PREPARE</text>
+<text x="604" y="151" font-size="10.5" font-weight="700" text-anchor="end" fill="#1f6f5c">CODE ONLY</text>
+<circle cx="41" cy="168" r="3.5" fill="#1f6f5c"/>
+<text x="52" y="172" font-size="11" fill="#52514e"><tspan fill="#1f6f5c" font-weight="600">code </tspan>read every row · SHA-256 per row · empty text → quarantine · group exact duplicates · build pending queue</text>
+<text x="52" y="212" font-size="10" fill="#b3472f">stop / retry: malformed CSV aborts before any spend</text>
+<rect x="648" y="145.0" width="312" height="62" rx="7" fill="none" stroke="#d6d5d0" stroke-dasharray="4 3"/>
+<text x="661" y="164.0" font-size="10" font-weight="600" fill="#76756f" letter-spacing="0.5">SAVED, INSPECTABLE</text>
+<text x="661" y="181.0" font-size="11" font-family="ui-monospace,Menlo,monospace" fill="#52514e">grading/ingestion.json</text>
+<text x="661" y="197.0" font-size="11" font-family="ui-monospace,Menlo,monospace" fill="#52514e">data/analysis_manifest.json</text>
+<line x1="618" y1="176.0" x2="642" y2="176.0" stroke="#76756f" stroke-width="1.2" marker-end="url(#arm)"/>
+<line x1="170" y1="224" x2="170" y2="252" stroke="#52514e" stroke-width="1.6" marker-end="url(#ar)"/>
+<text x="182" y="243" font-size="10.5" fill="#76756f">77,991 distinct texts queued</text>
+<rect x="20" y="254" width="598" height="96" rx="8" fill="#fcfcfb" stroke="#d6d5d0"/>
+<text x="36" y="277" font-size="13.5" font-weight="700" fill="#0b0b0b">2 · ENRICH</text>
+<text x="604" y="277" font-size="10.5" font-weight="700" text-anchor="end" fill="#2a78d6">CODE + MODEL</text>
+<circle cx="41" cy="294" r="3.5" fill="#2a78d6"/>
+<text x="52" y="298" font-size="11" fill="#52514e"><tspan fill="#2a78d6" font-weight="600">model </tspan>Jev jev-1.13.0 · topic, intent, severity, sentiment · 10 reviews per request, rubric sent once</text>
+<circle cx="41" cy="312" r="3.5" fill="#1f6f5c"/>
+<text x="52" y="316" font-size="11" fill="#52514e"><tspan fill="#1f6f5c" font-weight="600">code </tspan>validate schema · evidence quote = exact substring · entity match · cache lookup · atomic save per request</text>
+<text x="52" y="338" font-size="10" fill="#b3472f">stop / retry: invalid output → 1 retry → quarantine   ·   429/5xx → 3 tries, backoff+jitter   ·   spend cap → stop and save</text>
+<rect x="648" y="263.0" width="312" height="78" rx="7" fill="none" stroke="#d6d5d0" stroke-dasharray="4 3"/>
+<text x="661" y="282.0" font-size="10" font-weight="600" fill="#76756f" letter-spacing="0.5">SAVED, INSPECTABLE</text>
+<text x="661" y="299.0" font-size="11" font-family="ui-monospace,Menlo,monospace" fill="#52514e">results.jsonl</text>
+<text x="661" y="315.0" font-size="11" font-family="ui-monospace,Menlo,monospace" fill="#52514e">cache.jsonl  (exact-text reuse)</text>
+<text x="661" y="331.0" font-size="11" font-family="ui-monospace,Menlo,monospace" fill="#52514e">calls.jsonl  (every attempt)</text>
+<line x1="618" y1="302.0" x2="642" y2="302.0" stroke="#76756f" stroke-width="1.2" marker-end="url(#arm)"/>
+<line x1="170" y1="350" x2="170" y2="378" stroke="#52514e" stroke-width="1.6" marker-end="url(#ar)"/>
+<text x="182" y="369" font-size="10.5" fill="#76756f">100,000 completed records</text>
+<rect x="20" y="380" width="598" height="96" rx="8" fill="#fcfcfb" stroke="#d6d5d0"/>
+<text x="36" y="403" font-size="13.5" font-weight="700" fill="#0b0b0b">3 · VERIFY</text>
+<text x="604" y="403" font-size="10.5" font-weight="700" text-anchor="end" fill="#2a78d6">CODE + MODEL</text>
+<circle cx="41" cy="420" r="3.5" fill="#2a78d6"/>
+<text x="52" y="424" font-size="11" fill="#52514e"><tspan fill="#2a78d6" font-weight="600">model </tspan>Jev verify-p1 · separately worded · sees the review text only, never the first answer</text>
+<circle cx="41" cy="438" r="3.5" fill="#1f6f5c"/>
+<text x="52" y="442" font-size="11" fill="#52514e"><tspan fill="#1f6f5c" font-weight="600">code </tspan>deterministic 1% sample · compares the two answers · records every disagreement</text>
+<text x="52" y="464" font-size="10" fill="#b3472f">stop / retry: failed call is logged and skipped; the run continues</text>
+<rect x="648" y="397.0" width="312" height="62" rx="7" fill="none" stroke="#d6d5d0" stroke-dasharray="4 3"/>
+<text x="661" y="416.0" font-size="10" font-weight="600" fill="#76756f" letter-spacing="0.5">SAVED, INSPECTABLE</text>
+<text x="661" y="433.0" font-size="11" font-family="ui-monospace,Menlo,monospace" fill="#52514e">verify_report.json</text>
+<text x="661" y="449.0" font-size="11" font-family="ui-monospace,Menlo,monospace" fill="#52514e">verify_results.jsonl</text>
+<line x1="618" y1="428.0" x2="642" y2="428.0" stroke="#76756f" stroke-width="1.2" marker-end="url(#arm)"/>
+<line x1="170" y1="476" x2="170" y2="504" stroke="#52514e" stroke-width="1.6" marker-end="url(#ar)"/>
+<text x="182" y="495" font-size="10.5" fill="#76756f">completed complaint + cancellation records</text>
+<rect x="20" y="506" width="598" height="96" rx="8" fill="#fcfcfb" stroke="#d6d5d0"/>
+<text x="36" y="529" font-size="13.5" font-weight="700" fill="#0b0b0b">4 · GROUP</text>
+<text x="604" y="529" font-size="10.5" font-weight="700" text-anchor="end" fill="#2a78d6">CODE + MODEL</text>
+<circle cx="41" cy="546" r="3.5" fill="#2a78d6"/>
+<text x="52" y="550" font-size="11" fill="#52514e"><tspan fill="#2a78d6" font-weight="600">model </tspan>Claude Haiku group-p1 · names and describes issues from bounded example quotes</text>
+<circle cx="41" cy="564" r="3.5" fill="#1f6f5c"/>
+<text x="52" y="568" font-size="11" fill="#52514e"><tspan fill="#1f6f5c" font-weight="600">code </tspan>membership is deterministic: one issue per primary topic · model output cannot change it</text>
+<text x="52" y="590" font-size="10" fill="#b3472f">stop / retry: invented issue id → rejected, falls back to the topic name</text>
+<rect x="648" y="523.0" width="312" height="62" rx="7" fill="none" stroke="#d6d5d0" stroke-dasharray="4 3"/>
+<text x="661" y="542.0" font-size="10" font-weight="600" fill="#76756f" letter-spacing="0.5">SAVED, INSPECTABLE</text>
+<text x="661" y="559.0" font-size="11" font-family="ui-monospace,Menlo,monospace" fill="#52514e">membership.csv</text>
+<text x="661" y="575.0" font-size="11" font-family="ui-monospace,Menlo,monospace" fill="#52514e">issues.json</text>
+<line x1="618" y1="554.0" x2="642" y2="554.0" stroke="#76756f" stroke-width="1.2" marker-end="url(#arm)"/>
+<line x1="170" y1="602" x2="170" y2="630" stroke="#52514e" stroke-width="1.6" marker-end="url(#ar)"/>
+<text x="182" y="621" font-size="10.5" fill="#76756f">issue membership</text>
+<rect x="20" y="632" width="598" height="96" rx="8" fill="#fcfcfb" stroke="#d6d5d0"/>
+<text x="36" y="655" font-size="13.5" font-weight="700" fill="#0b0b0b">5 · RANK</text>
+<text x="604" y="655" font-size="10.5" font-weight="700" text-anchor="end" fill="#1f6f5c">CODE ONLY</text>
+<circle cx="41" cy="672" r="3.5" fill="#1f6f5c"/>
+<text x="52" y="676" font-size="11" fill="#52514e"><tspan fill="#1f6f5c" font-weight="600">code </tspan>priority_score = complaint_count × mean_severity = severity_sum · ties by issue_id · no model call</text>
+<text x="52" y="716" font-size="10" fill="#b3472f">stop / retry: pure function of saved records — regenerates identically, offline</text>
+<rect x="648" y="649.0" width="312" height="62" rx="7" fill="none" stroke="#d6d5d0" stroke-dasharray="4 3"/>
+<text x="661" y="668.0" font-size="10" font-weight="600" fill="#76756f" letter-spacing="0.5">SAVED, INSPECTABLE</text>
+<text x="661" y="685.0" font-size="11" font-family="ui-monospace,Menlo,monospace" fill="#52514e">ranking.csv</text>
+<text x="661" y="701.0" font-size="11" font-family="ui-monospace,Menlo,monospace" fill="#52514e">claims.csv</text>
+<line x1="618" y1="680.0" x2="642" y2="680.0" stroke="#76756f" stroke-width="1.2" marker-end="url(#arm)"/>
+<line x1="170" y1="728" x2="170" y2="756" stroke="#52514e" stroke-width="1.6" marker-end="url(#ar)"/>
+<text x="182" y="747" font-size="10.5" fill="#76756f">ranked aggregates + claim ids</text>
+<rect x="20" y="758" width="598" height="96" rx="8" fill="#fcfcfb" stroke="#d6d5d0"/>
+<text x="36" y="781" font-size="13.5" font-weight="700" fill="#0b0b0b">6 · RECOMMEND</text>
+<text x="604" y="781" font-size="10.5" font-weight="700" text-anchor="end" fill="#2a78d6">CODE + MODEL</text>
+<circle cx="41" cy="798" r="3.5" fill="#2a78d6"/>
+<text x="52" y="802" font-size="11" fill="#52514e"><tspan fill="#2a78d6" font-weight="600">model </tspan>Claude Haiku memo-p2 · reads ONLY the ranked table and a bounded evidence pack</text>
+<circle cx="41" cy="816" r="3.5" fill="#1f6f5c"/>
+<text x="52" y="820" font-size="11" fill="#52514e"><tspan fill="#1f6f5c" font-weight="600">code </tspan>checks every claim id, review id and number against saved calculations · rejects derived figures</text>
+<text x="52" y="842" font-size="10" fill="#b3472f">stop / retry: validation failure is published as failed, never silently accepted</text>
+<rect x="648" y="775.0" width="312" height="62" rx="7" fill="none" stroke="#d6d5d0" stroke-dasharray="4 3"/>
+<text x="661" y="794.0" font-size="10" font-weight="600" fill="#76756f" letter-spacing="0.5">SAVED, INSPECTABLE</text>
+<text x="661" y="811.0" font-size="11" font-family="ui-monospace,Menlo,monospace" fill="#52514e">memo.md</text>
+<text x="661" y="827.0" font-size="11" font-family="ui-monospace,Menlo,monospace" fill="#52514e">memo_model_output.json</text>
+<line x1="618" y1="806.0" x2="642" y2="806.0" stroke="#76756f" stroke-width="1.2" marker-end="url(#arm)"/>
+<line x1="170" y1="860" x2="170" y2="884" stroke="#52514e" stroke-width="1.6" marker-end="url(#ar)"/>
+<text x="182" y="878" font-size="10.5" fill="#76756f">db/load_db.py — COPY from saved artifacts</text>
+<rect x="20" y="888" width="940" height="124" rx="8" fill="#f4f4f1" stroke="#d6d5d0"/>
+<rect x="38" y="906" width="282" height="88" rx="7" fill="#fcfcfb" stroke="#d6d5d0"/>
+<text x="51" y="927" font-size="12" font-weight="700" fill="#0b0b0b">Postgres (Supabase)</text>
+<text x="51" y="945" font-size="10.5" fill="#52514e">10 tables · 100,013 records</text>
+<text x="51" y="960" font-size="10.5" fill="#52514e">RLS on, no policies → anon key</text>
+<text x="51" y="975" font-size="10.5" fill="#52514e">cannot read it</text>
+<line x1="324" y1="950" x2="340" y2="950" stroke="#52514e" stroke-width="1.6" marker-end="url(#ar)"/>
+<rect x="346" y="906" width="282" height="88" rx="7" fill="#fcfcfb" stroke="#d6d5d0"/>
+<text x="359" y="927" font-size="12" font-weight="700" fill="#0b0b0b">Next.js backend (Vercel)</text>
+<text x="359" y="945" font-size="10.5" fill="#52514e">server-side only · privileged role</text>
+<text x="359" y="960" font-size="10.5" fill="#52514e">lib/db.ts + 6 /api/* routes</text>
+<text x="359" y="975" font-size="10.5" fill="#52514e">queries on every request</text>
+<line x1="632" y1="950" x2="648" y2="950" stroke="#52514e" stroke-width="1.6" marker-end="url(#ar)"/>
+<rect x="654" y="906" width="282" height="88" rx="7" fill="#fcfcfb" stroke="#d6d5d0"/>
+<text x="667" y="927" font-size="12" font-weight="700" fill="#0b0b0b">Public dashboard</text>
+<text x="667" y="945" font-size="10.5" fill="#52514e">metrics · ranking · AI memo</text>
+<text x="667" y="960" font-size="10.5" fill="#52514e">per-issue review evidence</text>
+<text x="667" y="975" font-size="10.5" fill="#52514e">no login required</text>
+<text x="38" y="1010" font-size="10.5" fill="#76756f">the database is a serving layer, never the source of truth — every row is rebuildable from the saved artifacts above</text>
+<text x="20" y="1100" font-size="11" fill="#52514e"><tspan font-weight="700" fill="#1f6f5c">Code</tspan> owns record accounting, caching, validation, arithmetic and control flow.  <tspan font-weight="700" fill="#2a78d6">Models</tspan> only read messy language — they never choose what runs next, and never produce a number the memo cites.</text>
+</g></svg>
