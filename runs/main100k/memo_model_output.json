@@ -1,0 +1,91 @@
+{
+  "cost_usd": 0.009414,
+  "duration_s": 13.651,
+  "label_config": "claude-haiku-4-5+memo-p2",
+  "memo": {
+    "alternatives": [
+      {
+        "case_for": "Playback issues have the highest mean severity at C8: 3.644176, signaling acute user frustration. C7: 6121 complaints yield C9: 22306 priority score. Evidence shows complete playback failures (0834a740-a550-4e67-b4ef-128a78940f6b) and app glitches (15d478e6-07df-436c-8c31-a0ab7a6b4e77) directly block core functionality.",
+        "cited_claim_ids": [
+          "C7",
+          "C8",
+          "C9"
+        ],
+        "issue_id": "ISS-playback",
+        "why_not_first": "Lower complaint volume than usability and other. A high-severity, low-volume issue trades off against broader user impact: playback affects fewer reviewers but hits harder per incident."
+      },
+      {
+        "case_for": "Billing issues have C11: 2.946708 mean severity and C10: 7412 complaints, yielding C12: 21841 priority score. Evidence shows charged accounts (01bc38c1-0d0b-4716-a3ed-a7fc3a0aa362, 0327424f-5ab1-42d7-aefa-b021dc049420) and account state mismatches (01fe8e61-0f32-4a8c-b6ae-a542cfa33975) erode trust in payment systems.",
+        "cited_claim_ids": [
+          "C10",
+          "C11",
+          "C12"
+        ],
+        "issue_id": "ISS-billing",
+        "why_not_first": "Usability and other issues rank higher by priority score. Billing volume is meaningful but lower than top two; playback severity is higher despite fewer complaints."
+      },
+      {
+        "case_for": "Access issues have the second-highest mean severity at C17: 3.969859. Though C16: 1493 complaints yield low C18: 5927 priority score, the intensity suggests access barriers significantly impair affected users.",
+        "cited_claim_ids": [
+          "C16",
+          "C17",
+          "C18"
+        ],
+        "issue_id": "ISS-access",
+        "why_not_first": "Complaint volume is lowest among top tiers. Playback and billing address more reviewers despite lower severity per incident."
+      }
+    ],
+    "limitations": [
+      "Data reflects self-selected public reviews only; does not represent full user population, paying customers, or observed churn. No causal inference about retention or revenue impact possible.",
+      "Complaint intent (cancellation vs. complaint) is stated intent, not confirmed account closure.",
+      "ISS-other (C4: 14389 complaints, C6: 29099 priority score) contains unclassified issues; actionability requires sub-categorization.",
+      "Severity and count are inferred from review text; no direct user telemetry on feature usage or failure rates available.",
+      "Evidence pack is illustrative only; patterns may not be fully representative of classified corpus."
+    ],
+    "recommendation": {
+      "cited_claim_ids": [
+        "C1",
+        "C2",
+        "C3"
+      ],
+      "cited_review_ids": [
+        "5e8201f3-0f71-44be-8eab-b8d9414496be",
+        "08a1f178-3e7a-4d65-9da3-dee293dd0061",
+        "30b1d1c0-e1a1-437f-a5cd-e1327467bda4",
+        "365c0fe6-e618-4c4a-9176-fbd48eb76d30"
+      ],
+      "headline": "Address usability and ad experience as top priority",
+      "issue_id": "ISS-usability",
+      "rationale": "Usability ranks first by priority score with C3: 32340, driven by C1: 12408 complaints at C2: 2.606383 mean severity. Volume dominates here: this catches the most users. Evidence shows ad frequency complaints (review 5e8201f3-0f71-44be-8eab-b8d9414496be, 08a1f178-3e7a-4d65-9da3-dee293dd0061) and app state loss (30b1d1c0-e1a1-437f-a5cd-e1327467bda4, 365c0fe6-e618-4c4a-9176-fbd48eb76d30) are recurring friction points affecting daily user engagement."
+    }
+  },
+  "model": "claude-haiku-4-5",
+  "usage": {
+    "input_tokens": 4424,
+    "output_tokens": 998
+  },
+  "validation": {
+    "claims_cited": [
+      "C1",
+      "C10",
+      "C11",
+      "C12",
+      "C16",
+      "C17",
+      "C18",
+      "C2",
+      "C3",
+      "C7",
+      "C8",
+      "C9"
+    ],
+    "passed": true,
+    "problems": [],
+    "reviews_cited": [
+      "5e8201f3-0f71-44be-8eab-b8d9414496be",
+      "08a1f178-3e7a-4d65-9da3-dee293dd0061",
+      "30b1d1c0-e1a1-437f-a5cd-e1327467bda4",
+      "365c0fe6-e618-4c4a-9176-fbd48eb76d30"
+    ]
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "cost_usd": 0.004305,
+  "grouping_rule": "one issue per primary topic; membership assigned in code, never by the model",
+  "issues": {
+    "ISS-access": {
+      "description": "Reviewers report being locked out of accounts unexpectedly, unable to log in after updates, and experiencing account security issues like unauthorized access.",
+      "label": "Account access failures",
+      "member_count": 1493,
+      "topic": "access"
+    },
+    "ISS-billing": {
+      "description": "Reviewers complain that basic features have been restricted behind premium subscription requirements and express dissatisfaction with mandatory paid upgrades.",
+      "label": "Premium paywall frustration",
+      "member_count": 7412,
+      "topic": "billing"
+    },
+    "ISS-catalog": {
+      "description": "Reviewers report songs disappearing from playlists and liked songs, while song suggestions lack variety and become repetitive.",
+      "label": "Missing songs and poor recommendations",
+      "member_count": 2332,
+      "topic": "catalog"
+    },
+    "ISS-downloads": {
+      "description": "Reviewers struggle with downloading songs for offline listening, experience downloaded content being removed after updates or phone changes, and report storage management issues.",
+      "label": "Offline download problems",
+      "member_count": 1026,
+      "topic": "downloads"
+    },
+    "ISS-other": {
+      "description": "Reviewers describe the app as buggy, unstable, and experiencing deterioration in overall performance and user experience.",
+      "label": "General app instability",
+      "member_count": 14389,
+      "topic": "other"
+    },
+    "ISS-playback": {
+      "description": "Reviewers experience music stopping mid-playback, pauses between songs, false connectivity errors despite having internet, and difficulty playing songs uninterrupted.",
+      "label": "Playback interruptions",
+      "member_count": 6121,
+      "topic": "playback"
+    },
+    "ISS-support": {
+      "description": "Reviewers report difficulty reaching support, unhelpful or dismissive customer service interactions, and inaccessible contact channels.",
+      "label": "Inadequate customer support",
+      "member_count": 101,
+      "topic": "support"
+    },
+    "ISS-usability": {
+      "description": "Reviewers complain about frequent ad interruptions, aggressive unskippable ads, and disabled shuffle forcing users toward premium subscriptions.",
+      "label": "Excessive ads and restrictions",
+      "member_count": 12408,
+      "topic": "usability"
+    }
+  },
+  "label_config": "claude-haiku-4-5+group-p1",
+  "naming_model": "claude-haiku-4-5",
+  "usage": {
+    "input_tokens": 2345,
+    "output_tokens": 392
+  },
+  "validation": {
+    "passed": true,
+    "problems": []
+  }
+}

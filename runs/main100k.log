@@ -1,0 +1,180 @@
+[enrich] 100013 rows | 0 already done | 13 empty->quarantine | 0 cache hits | 77991 unique texts need a model call
+[enrich] 50/7800 requests | completed=10442 quarantined=0 spent=$0.014455
+[enrich] 100/7800 requests | completed=11858 quarantined=0 spent=$0.028367
+[enrich] 150/7800 requests | completed=13154 quarantined=0 spent=$0.042563
+[enrich] 200/7800 requests | completed=14389 quarantined=0 spent=$0.056759
+[enrich] 250/7800 requests | completed=15786 quarantined=0 spent=$0.070968
+[enrich] 300/7800 requests | completed=16802 quarantined=0 spent=$0.085210
+[enrich] 350/7800 requests | completed=17556 quarantined=0 spent=$0.099440
+[enrich] 400/7800 requests | completed=18342 quarantined=0 spent=$0.113670
+[enrich] 450/7800 requests | completed=19043 quarantined=0 spent=$0.127924
+[enrich] 500/7800 requests | completed=19854 quarantined=0 spent=$0.142463
+[enrich] 550/7800 requests | completed=20624 quarantined=0 spent=$0.156698
+[enrich] 600/7800 requests | completed=21270 quarantined=0 spent=$0.170915
+[enrich] 650/7800 requests | completed=21979 quarantined=0 spent=$0.185153
+[enrich] 700/7800 requests | completed=22669 quarantined=0 spent=$0.199715
+[enrich] 750/7800 requests | completed=23241 quarantined=0 spent=$0.214566
+[enrich] 800/7800 requests | completed=23815 quarantined=0 spent=$0.228257
+[enrich] 850/7800 requests | completed=24477 quarantined=0 spent=$0.242468
+[enrich] 900/7800 requests | completed=25210 quarantined=0 spent=$0.256734
+[enrich] 950/7800 requests | completed=26028 quarantined=0 spent=$0.270989
+[enrich] 1000/7800 requests | completed=26616 quarantined=0 spent=$0.285220
+[enrich] 1050/7800 requests | completed=27193 quarantined=0 spent=$0.299503
+[enrich] 1100/7800 requests | completed=27791 quarantined=0 spent=$0.313730
+[enrich] 1150/7800 requests | completed=28416 quarantined=0 spent=$0.327927
+[enrich] 1200/7800 requests | completed=28987 quarantined=0 spent=$0.342451
+[enrich] 1250/7800 requests | completed=29623 quarantined=0 spent=$0.356633
+[enrich] 1300/7800 requests | completed=30204 quarantined=0 spent=$0.370856
+[enrich] 1350/7800 requests | completed=30757 quarantined=0 spent=$0.385116
+[enrich] 1400/7800 requests | completed=31377 quarantined=0 spent=$0.399391
+[enrich] 1450/7800 requests | completed=31935 quarantined=0 spent=$0.413611
+[enrich] 1500/7800 requests | completed=32504 quarantined=0 spent=$0.427839
+[enrich] 1550/7800 requests | completed=33070 quarantined=0 spent=$0.442112
+[enrich] 1600/7800 requests | completed=33636 quarantined=0 spent=$0.456387
+[enrich] 1650/7800 requests | completed=34215 quarantined=0 spent=$0.470595
+[enrich] 1700/7800 requests | completed=34830 quarantined=0 spent=$0.484815
+[enrich] 1750/7800 requests | completed=35386 quarantined=0 spent=$0.499013
+[enrich] 1800/7800 requests | completed=35903 quarantined=0 spent=$0.513492
+[enrich] 1850/7800 requests | completed=36592 quarantined=0 spent=$0.527718
+[enrich] 1900/7800 requests | completed=37118 quarantined=0 spent=$0.541949
+[enrich] 1950/7800 requests | completed=37666 quarantined=0 spent=$0.556171
+[enrich] 2000/7800 requests | completed=38219 quarantined=0 spent=$0.570694
+[enrich] 2050/7800 requests | completed=38747 quarantined=0 spent=$0.585140
+[enrich] 2100/7800 requests | completed=39278 quarantined=0 spent=$0.599408
+[enrich] 2150/7800 requests | completed=39792 quarantined=0 spent=$0.613697
+[enrich] 2200/7800 requests | completed=40330 quarantined=0 spent=$0.627975
+[enrich] 2250/7800 requests | completed=40843 quarantined=0 spent=$0.642203
+[enrich] 2300/7800 requests | completed=41356 quarantined=0 spent=$0.656508
+[enrich] 2350/7800 requests | completed=41897 quarantined=0 spent=$0.670808
+[enrich] 2400/7800 requests | completed=42531 quarantined=0 spent=$0.685039
+[enrich] 2450/7800 requests | completed=43058 quarantined=0 spent=$0.699391
+[enrich] 2500/7800 requests | completed=43783 quarantined=0 spent=$0.713768
+[enrich] 2550/7800 requests | completed=44337 quarantined=0 spent=$0.728052
+[enrich] 2600/7800 requests | completed=44852 quarantined=0 spent=$0.742346
+[enrich] 2650/7800 requests | completed=45375 quarantined=0 spent=$0.756628
+[enrich] 2700/7800 requests | completed=45909 quarantined=0 spent=$0.771478
+[enrich] 2750/7800 requests | completed=46427 quarantined=0 spent=$0.785165
+[enrich] 2800/7800 requests | completed=46944 quarantined=0 spent=$0.799753
+[enrich] 2850/7800 requests | completed=47458 quarantined=0 spent=$0.813719
+[enrich] 2900/7800 requests | completed=48058 quarantined=0 spent=$0.827952
+[enrich] 2950/7800 requests | completed=48576 quarantined=0 spent=$0.842189
+[enrich] 3000/7800 requests | completed=49097 quarantined=0 spent=$0.856416
+[enrich] 3050/7800 requests | completed=49652 quarantined=0 spent=$0.870672
+[enrich] 3100/7800 requests | completed=50171 quarantined=0 spent=$0.884901
+[enrich] 3150/7800 requests | completed=50688 quarantined=0 spent=$0.899170
+[enrich] 3200/7800 requests | completed=51207 quarantined=0 spent=$0.913428
+[enrich] 3250/7800 requests | completed=51728 quarantined=0 spent=$0.927871
+[enrich] 3300/7800 requests | completed=52250 quarantined=0 spent=$0.942087
+[enrich] 3350/7800 requests | completed=52766 quarantined=0 spent=$0.956399
+[enrich] 3400/7800 requests | completed=53289 quarantined=0 spent=$0.970667
+[enrich] 3450/7800 requests | completed=53823 quarantined=0 spent=$0.985003
+[enrich] 3500/7800 requests | completed=54338 quarantined=0 spent=$0.999348
+[enrich] 3550/7800 requests | completed=54856 quarantined=0 spent=$1.013691
+[enrich] 3600/7800 requests | completed=55374 quarantined=0 spent=$1.028025
+[enrich] 3650/7800 requests | completed=55889 quarantined=0 spent=$1.042350
+[enrich] 3700/7800 requests | completed=56408 quarantined=0 spent=$1.056641
+[enrich] 3750/7800 requests | completed=56918 quarantined=0 spent=$1.071039
+[enrich] 3800/7800 requests | completed=57434 quarantined=0 spent=$1.085656
+[enrich] 3850/7800 requests | completed=57936 quarantined=0 spent=$1.099687
+[enrich] 3900/7800 requests | completed=58453 quarantined=0 spent=$1.113905
+[enrich] 3950/7800 requests | completed=58964 quarantined=0 spent=$1.128154
+[enrich] 4000/7800 requests | completed=59482 quarantined=0 spent=$1.142445
+[enrich] 4050/7800 requests | completed=59986 quarantined=0 spent=$1.156698
+[enrich] 4100/7800 requests | completed=60501 quarantined=0 spent=$1.171004
+[enrich] 4150/7800 requests | completed=61021 quarantined=0 spent=$1.185328
+[enrich] 4200/7800 requests | completed=61526 quarantined=0 spent=$1.199633
+[enrich] 4250/7800 requests | completed=62032 quarantined=0 spent=$1.213964
+[enrich] 4300/7800 requests | completed=62546 quarantined=0 spent=$1.228255
+[enrich] 4350/7800 requests | completed=63063 quarantined=0 spent=$1.242579
+[enrich] 4400/7800 requests | completed=63591 quarantined=0 spent=$1.256904
+[enrich] 4450/7800 requests | completed=64106 quarantined=0 spent=$1.271207
+[enrich] 4500/7800 requests | completed=64681 quarantined=0 spent=$1.285477
+[enrich] 4550/7800 requests | completed=65433 quarantined=0 spent=$1.299617
+[enrich] 4600/7800 requests | completed=66790 quarantined=0 spent=$1.314008
+[enrich] 4650/7800 requests | completed=67634 quarantined=0 spent=$1.328070
+[enrich] 4700/7800 requests | completed=68295 quarantined=0 spent=$1.342114
+[enrich] 4750/7800 requests | completed=68858 quarantined=0 spent=$1.356193
+[enrich] 4800/7800 requests | completed=69407 quarantined=0 spent=$1.370246
+[enrich] 4850/7800 requests | completed=69958 quarantined=0 spent=$1.384317
+[enrich] 4900/7800 requests | completed=70507 quarantined=0 spent=$1.398700
+[enrich] 4950/7800 requests | completed=71058 quarantined=0 spent=$1.412491
+[enrich] 5000/7800 requests | completed=71605 quarantined=0 spent=$1.426548
+[enrich] 5050/7800 requests | completed=72137 quarantined=0 spent=$1.440643
+[enrich] 5100/7800 requests | completed=72661 quarantined=0 spent=$1.454800
+[enrich] 5150/7800 requests | completed=73188 quarantined=0 spent=$1.469180
+[enrich] 5200/7800 requests | completed=73706 quarantined=0 spent=$1.483441
+[enrich] 5250/7800 requests | completed=74218 quarantined=0 spent=$1.497682
+[enrich] 5300/7800 requests | completed=74723 quarantined=0 spent=$1.511976
+[enrich] 5350/7800 requests | completed=75228 quarantined=0 spent=$1.526240
+[enrich] 5400/7800 requests | completed=75739 quarantined=0 spent=$1.540507
+[enrich] 5450/7800 requests | completed=76245 quarantined=0 spent=$1.554808
+[enrich] 5500/7800 requests | completed=76755 quarantined=0 spent=$1.569082
+[enrich] 5550/7800 requests | completed=77259 quarantined=0 spent=$1.583367
+[enrich] 5600/7800 requests | completed=77761 quarantined=0 spent=$1.597666
+[enrich] 5650/7800 requests | completed=78264 quarantined=0 spent=$1.611909
+[enrich] 5700/7800 requests | completed=78767 quarantined=0 spent=$1.626194
+[enrich] 5750/7800 requests | completed=79270 quarantined=0 spent=$1.640495
+[enrich] 5800/7800 requests | completed=79782 quarantined=0 spent=$1.654881
+[enrich] 5850/7800 requests | completed=80288 quarantined=0 spent=$1.669270
+[enrich] 5900/7800 requests | completed=80791 quarantined=0 spent=$1.683679
+[enrich] 5950/7800 requests | completed=81300 quarantined=0 spent=$1.698030
+[enrich] 6000/7800 requests | completed=81808 quarantined=0 spent=$1.712650
+[enrich] 6050/7800 requests | completed=82311 quarantined=0 spent=$1.726984
+[enrich] 6100/7800 requests | completed=82816 quarantined=0 spent=$1.741304
+[enrich] 6150/7800 requests | completed=83325 quarantined=0 spent=$1.755619
+[enrich] 6200/7800 requests | completed=83829 quarantined=0 spent=$1.769923
+[enrich] 6250/7800 requests | completed=84338 quarantined=0 spent=$1.784266
+[enrich] 6300/7800 requests | completed=84839 quarantined=0 spent=$1.798565
+[enrich] 6350/7800 requests | completed=85348 quarantined=0 spent=$1.812938
+[enrich] 6400/7800 requests | completed=85858 quarantined=0 spent=$1.827613
+[enrich] 6450/7800 requests | completed=86382 quarantined=0 spent=$1.842027
+[enrich] 6500/7800 requests | completed=86888 quarantined=0 spent=$1.856823
+[enrich] 6550/7800 requests | completed=87394 quarantined=0 spent=$1.871257
+[enrich] 6600/7800 requests | completed=87907 quarantined=0 spent=$1.885646
+[enrich] 6650/7800 requests | completed=88422 quarantined=0 spent=$1.900042
+[enrich] 6700/7800 requests | completed=88942 quarantined=0 spent=$1.914441
+[enrich] 6750/7800 requests | completed=89453 quarantined=0 spent=$1.928806
+[enrich] 6800/7800 requests | completed=89957 quarantined=0 spent=$1.943193
+[enrich] 6850/7800 requests | completed=90461 quarantined=0 spent=$1.957580
+[enrich] 6900/7800 requests | completed=90968 quarantined=0 spent=$1.972241
+[enrich] 6950/7800 requests | completed=91473 quarantined=0 spent=$1.986557
+[enrich] 7000/7800 requests | completed=91977 quarantined=0 spent=$2.000904
+[enrich] 7050/7800 requests | completed=92481 quarantined=0 spent=$2.015264
+[enrich] 7100/7800 requests | completed=92988 quarantined=0 spent=$2.029634
+[enrich] 7150/7800 requests | completed=93493 quarantined=0 spent=$2.044008
+[enrich] 7200/7800 requests | completed=93996 quarantined=0 spent=$2.058338
+[enrich] 7250/7800 requests | completed=94499 quarantined=0 spent=$2.072656
+[enrich] 7300/7800 requests | completed=95003 quarantined=0 spent=$2.086934
+[enrich] 7350/7800 requests | completed=95504 quarantined=0 spent=$2.101202
+[enrich] 7400/7800 requests | completed=96006 quarantined=0 spent=$2.115764
+[enrich] 7450/7800 requests | completed=96507 quarantined=0 spent=$2.130033
+[enrich] 7500/7800 requests | completed=97007 quarantined=0 spent=$2.144357
+[enrich] 7550/7800 requests | completed=97508 quarantined=0 spent=$2.158657
+[enrich] 7600/7800 requests | completed=98008 quarantined=0 spent=$2.172957
+[enrich] 7650/7800 requests | completed=98509 quarantined=0 spent=$2.187286
+[enrich] 7700/7800 requests | completed=99009 quarantined=0 spent=$2.201635
+[enrich] 7750/7800 requests | completed=99509 quarantined=0 spent=$2.215998
+[enrich] 7800/7800 requests | completed=100000 quarantined=0 spent=$2.230118
+{
+  "run_id": "initial-20261006T203117-8ea0e4",
+  "phase": "initial",
+  "input": "data/analysis_100k.csv",
+  "input_sha256": "13223ffc413a04fd81db33f5633f9bd75e997737ba9a8391d7b6ba97e0915522",
+  "label_config": "jev-1.13.0+enrich-b1+schema-v1",
+  "batch_size": 10,
+  "rows": 100013,
+  "already_done": 0,
+  "empty_quarantined_now": 13,
+  "cache_hit_records": 0,
+  "pending_unique_texts": 77991,
+  "pending_records": 100000,
+  "workers": 8,
+  "max_spend_usd": 3.2,
+  "requests": 7800,
+  "completed": 100000,
+  "quarantined": 0,
+  "pending_failed": 0,
+  "stop_reason": null,
+  "run_spent_usd": 2.23011835,
+  "wall_clock_s": 839.908
+}

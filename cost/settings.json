@@ -1,0 +1,33 @@
+{
+  "_comment": "Editable controls and projection assumptions. Offline replay reads this file; change values and rerun `python3 cost/calculator.py`.",
+  "pilot_input": "data/cost_100.csv",
+  "pilot_run_cap_usd": 0.05,
+  "pilot_verify_fraction": 0.2,
+  "pilot_batch_size": 10,
+  "spending_limit_full_run_usd": 6.0,
+  "max_workers": 16,
+  "output_token_cap": null,
+  "output_token_cap_note": "Jev answers are fixed-size choices/scores and output tokens are billed at $0; no free-text output to cap.",
+  "max_fallback_fraction": 0.0,
+  "fallback_note": "No stronger fallback model is configured yet. If one is added, set its rate in rates.csv and a fraction here.",
+  "full_run": {
+    "_comment": "Declared analysis scope (assignment v2 allows >=100,000). See data/analysis_manifest.json.",
+    "scope": "analysis_100k",
+    "rows": 100013,
+    "nonempty": 100000,
+    "empty_quarantines": 13,
+    "distinct_nonempty_texts": 77991
+  },
+  "full_corpus_comparison": {
+    "_comment": "Shown alongside the declared scope for reference.",
+    "rows": 660622,
+    "nonempty": 660609,
+    "empty_quarantines": 13,
+    "distinct_nonempty_texts": 484189
+  },
+  "scenarios": {
+    "base": {"verify_fraction": 0.01, "extra_retry_rate": 0.0, "fallback_fraction": 0.0},
+    "conservative": {"verify_fraction": 0.02, "extra_retry_rate": 0.05, "fallback_fraction": 0.0, "token_inflation": 1.15}
+  },
+  "local_compute": "Pipeline code runs on a laptop; electricity/hardware not measured (reported as unknown, not zero)."
+}

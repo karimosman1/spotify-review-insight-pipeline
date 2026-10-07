@@ -1,0 +1,53 @@
+{
+  "agreement": {
+    "intent": 0.95,
+    "severity": 0.85,
+    "topic": 1.0
+  },
+  "compared": 20,
+  "disagreements": [
+    {
+      "diffs": {
+        "severity": {
+          "enricher": 2,
+          "verifier": 3
+        }
+      },
+      "evidence_quote": "It is good but there is a problem that in some songs there is no lyrics and in some songs there is lyrics it's so confusing. However it is good 😊😊.",
+      "review_id": "47becad0-8ae5-4a10-9731-fde8f2091862"
+    },
+    {
+      "diffs": {
+        "severity": {
+          "enricher": 4,
+          "verifier": 3
+        }
+      },
+      "evidence_quote": "Keep stopping halfway while playing music and it dun go back to where they stop and start playing a new song for you.",
+      "review_id": "6c257eba-3dca-49f6-b7f0-4c4484d81e26"
+    },
+    {
+      "diffs": {
+        "intent": {
+          "enricher": "unclear",
+          "verifier": "cancellation"
+        },
+        "severity": {
+          "enricher": 1,
+          "verifier": 2
+        }
+      },
+      "evidence_quote": "Useless aap boycott sweden",
+      "review_id": "9e3a706c-f502-4664-a23f-33f3480eca64"
+    }
+  ],
+  "run_spent_usd": 0.00068481,
+  "sample_rate": 0.2,
+  "sample_seed": "verify-v1",
+  "sample_size": 20,
+  "stats": {
+    "requests": 20
+  },
+  "stop_reason": null,
+  "wall_clock_s": 3.504
+}

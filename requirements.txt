@@ -1,0 +1,4 @@
+anthropic>=1.11.0
+# Only the memo stage needs a package; ingestion, enrichment, verification, ranking,
+# the grading export and the offline cost replay are Python standard library only.
+psycopg[binary]>=3.2

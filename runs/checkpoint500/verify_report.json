@@ -1,0 +1,91 @@
+{
+  "agreement": {
+    "intent": 0.94,
+    "severity": 0.9,
+    "topic": 0.98
+  },
+  "compared": 50,
+  "disagreements": [
+    {
+      "diffs": {
+        "severity": {
+          "enricher": 2,
+          "verifier": 3
+        }
+      },
+      "evidence_quote": "Nice app! But many songs are not present here!",
+      "review_id": "0658feaa-5bec-416e-b6b0-3de2a4c14580"
+    },
+    {
+      "diffs": {
+        "intent": {
+          "enricher": "complaint",
+          "verifier": "praise"
+        },
+        "severity": {
+          "enricher": 2,
+          "verifier": 1
+        }
+      },
+      "evidence_quote": "When there is no adds its Awesome",
+      "review_id": "0cc5a3be-e40c-4e9f-918d-53d284e2e5b3"
+    },
+    {
+      "diffs": {
+        "intent": {
+          "enricher": "cancellation",
+          "verifier": "complaint"
+        }
+      },
+      "evidence_quote": "It stops randomly.",
+      "review_id": "1cdc5bb2-8e8d-4267-8853-6c1dd4c7ef13"
+    },
+    {
+      "diffs": {
+        "intent": {
+          "enricher": "complaint",
+          "verifier": "cancellation"
+        },
+        "severity": {
+          "enricher": 2,
+          "verifier": 4
+        }
+      },
+      "evidence_quote": "Nice but i am not install",
+      "review_id": "4e4c0ec8-e42b-4428-b192-d527c3384aab"
+    },
+    {
+      "diffs": {
+        "severity": {
+          "enricher": 1,
+          "verifier": 2
+        }
+      },
+      "evidence_quote": "Useless aap boycott sweden",
+      "review_id": "9e3a706c-f502-4664-a23f-33f3480eca64"
+    },
+    {
+      "diffs": {
+        "severity": {
+          "enricher": 3,
+          "verifier": 4
+        },
+        "topic": {
+          "enricher": "billing",
+          "verifier": "playback"
+        }
+      },
+      "evidence_quote": "I know they are pushing the users to buy their premium version but this isn't the way to do it.",
+      "review_id": "cc39673b-e332-4f1d-a6c6-ce378a715dcb"
+    }
+  ],
+  "run_spent_usd": 0.0017257,
+  "sample_rate": 0.1,
+  "sample_seed": "verify-v1",
+  "sample_size": 50,
+  "stats": {
+    "requests": 50
+  },
+  "stop_reason": null,
+  "wall_clock_s": 9.39
+}
