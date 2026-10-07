@@ -1,22 +1,22 @@
 {
   "cases": [
     {
-      "all_ok": true,
+      "all_ok": false,
       "ambiguous": false,
       "human_intent": "complaint",
       "human_severity": "2",
       "human_topic": "catalog",
       "intent_ok": true,
       "model_intent": "complaint",
-      "model_needs_review": true,
+      "model_needs_review": false,
       "model_severity": 2,
-      "model_topic": "catalog",
+      "model_topic": "other",
       "notes": "language",
       "quote_is_substring": true,
       "review_id": "292ce26a-815d-4bce-a3b6-93cb6c9e7e2c",
       "severity_ok": true,
       "text": "Staff must be full of mentally ill kool-aid heads. Banning conservative music that speaks truth. Spotify is doing all they can to protect pedophiles, by banning",
-      "topic_ok": true
+      "topic_ok": false
     },
     {
       "all_ok": true,
@@ -55,7 +55,7 @@
       "topic_ok": true
     },
     {
-      "all_ok": true,
+      "all_ok": false,
       "ambiguous": false,
       "human_intent": "complaint",
       "human_severity": "3",
@@ -63,12 +63,12 @@
       "intent_ok": true,
       "model_intent": "complaint",
       "model_needs_review": false,
-      "model_severity": 3,
+      "model_severity": 2,
       "model_topic": "usability",
       "notes": "negative language, intent to stop using the app, complaint about functionality",
       "quote_is_substring": true,
       "review_id": "991b6b3a-f511-458a-a5b7-234f78048fb5",
-      "severity_ok": true,
+      "severity_ok": false,
       "text": "Ads were okay, but limited functionality..it's just too much",
       "topic_ok": true
     },
@@ -163,7 +163,7 @@
       "topic_ok": true
     },
     {
-      "all_ok": false,
+      "all_ok": true,
       "ambiguous": true,
       "human_intent": "praise|unclear",
       "human_severity": "1",
@@ -172,13 +172,13 @@
       "model_intent": "praise",
       "model_needs_review": false,
       "model_severity": 1,
-      "model_topic": "billing",
+      "model_topic": "usability",
       "notes": "referring to ads but sentiment is unclear",
       "quote_is_substring": true,
       "review_id": "1fc8b08f-7d6a-472f-b317-8ceb28d00f22",
       "severity_ok": true,
       "text": "Duo Premium .... No ads at all!",
-      "topic_ok": false
+      "topic_ok": true
     },
     {
       "all_ok": false,
@@ -235,13 +235,13 @@
       "topic_ok": true
     },
     {
-      "all_ok": true,
+      "all_ok": false,
       "ambiguous": false,
       "human_intent": "praise",
       "human_severity": "1",
       "human_topic": "other",
-      "intent_ok": true,
-      "model_intent": "praise",
+      "intent_ok": false,
+      "model_intent": "unclear",
       "model_needs_review": false,
       "model_severity": 1,
       "model_topic": "other",
@@ -297,7 +297,7 @@
       "intent_ok": false,
       "model_intent": "complaint",
       "model_needs_review": true,
-      "model_severity": 3,
+      "model_severity": 2,
       "model_topic": "catalog",
       "notes": "comment is nonsense",
       "quote_is_substring": true,
@@ -333,7 +333,7 @@
       "intent_ok": true,
       "model_intent": "complaint",
       "model_needs_review": false,
-      "model_severity": 2,
+      "model_severity": 3,
       "model_topic": "catalog",
       "notes": "complaint about lack of lyrics",
       "quote_is_substring": true,
@@ -361,20 +361,20 @@
       "topic_ok": true
     },
     {
-      "all_ok": false,
+      "all_ok": true,
       "ambiguous": false,
       "human_intent": "cancellation",
       "human_severity": "2",
       "human_topic": "other",
-      "intent_ok": false,
-      "model_intent": "unclear",
-      "model_needs_review": false,
-      "model_severity": 1,
+      "intent_ok": true,
+      "model_intent": "cancellation",
+      "model_needs_review": true,
+      "model_severity": 2,
       "model_topic": "other",
       "notes": "boycott",
       "quote_is_substring": true,
       "review_id": "5de7f95b-ccad-41b2-9f63-a13f7c1d9f09",
-      "severity_ok": false,
+      "severity_ok": true,
       "text": "We are boycotting Swedish app in our protest against Sweden for their desrecpect & desceration of our holy book Qur'an",
       "topic_ok": true
     },
@@ -415,20 +415,20 @@
       "topic_ok": true
     },
     {
-      "all_ok": false,
+      "all_ok": true,
       "ambiguous": false,
       "human_intent": "complaint",
       "human_severity": "2",
       "human_topic": "usability",
-      "intent_ok": false,
-      "model_intent": "request",
+      "intent_ok": true,
+      "model_intent": "complaint",
       "model_needs_review": false,
-      "model_severity": 1,
+      "model_severity": 2,
       "model_topic": "usability",
       "notes": "complaint asking to reduce ads",
       "quote_is_substring": true,
       "review_id": "372d4e67-59cc-4c54-879f-3e8a202ee554",
-      "severity_ok": false,
+      "severity_ok": true,
       "text": "Please ye ads ko thoda kumm Karo harr ek song ke baad ad 🙏🙄",
       "topic_ok": true
     },
@@ -494,7 +494,7 @@
       "human_topic": "other",
       "intent_ok": true,
       "model_intent": "unclear",
-      "model_needs_review": false,
+      "model_needs_review": true,
       "model_severity": 1,
       "model_topic": "other",
       "notes": "",
@@ -541,20 +541,20 @@
       "topic_ok": true
     },
     {
-      "all_ok": true,
+      "all_ok": false,
       "ambiguous": false,
       "human_intent": "unclear",
       "human_severity": "1",
       "human_topic": "other",
-      "intent_ok": true,
-      "model_intent": "unclear",
-      "model_needs_review": true,
-      "model_severity": 1,
+      "intent_ok": false,
+      "model_intent": "complaint",
+      "model_needs_review": false,
+      "model_severity": 2,
       "model_topic": "other",
       "notes": "boycott",
       "quote_is_substring": true,
       "review_id": "8cc4fad4-26ec-47b7-96e8-49c7da714eca",
-      "severity_ok": true,
+      "severity_ok": false,
       "text": "I hate this app and sweden .I love islam",
       "topic_ok": true
     },
@@ -566,7 +566,7 @@
       "human_topic": "playback",
       "intent_ok": true,
       "model_intent": "complaint",
-      "model_needs_review": true,
+      "model_needs_review": false,
       "model_severity": 4,
       "model_topic": "playback",
       "notes": "can't play music",
@@ -577,7 +577,7 @@
       "topic_ok": true
     },
     {
-      "all_ok": false,
+      "all_ok": true,
       "ambiguous": false,
       "human_intent": "complaint",
       "human_severity": "2",
@@ -585,12 +585,12 @@
       "intent_ok": true,
       "model_intent": "complaint",
       "model_needs_review": true,
-      "model_severity": 3,
+      "model_severity": 2,
       "model_topic": "usability",
       "notes": "complaining about ad volume",
       "quote_is_substring": true,
       "review_id": "46c0b49f-83a1-427e-8f0b-cef62e3c94b5",
-      "severity_ok": false,
+      "severity_ok": true,
       "text": "Are you out of your mind? This is dangerous! Listening to music in a normal volume and suddenly an add starts and my ears feel like they explode!! Stop this BS,",
       "topic_ok": true
     },
@@ -757,7 +757,7 @@
       "topic_ok": true
     },
     {
-      "all_ok": false,
+      "all_ok": true,
       "ambiguous": false,
       "human_intent": "complaint",
       "human_severity": "3",
@@ -765,12 +765,12 @@
       "intent_ok": true,
       "model_intent": "complaint",
       "model_needs_review": false,
-      "model_severity": 4,
+      "model_severity": 3,
       "model_topic": "playback",
       "notes": "",
       "quote_is_substring": true,
       "review_id": "dceb14e7-2df0-422f-bb2b-73d7c373159a",
-      "severity_ok": false,
+      "severity_ok": true,
       "text": "I gave one star because I can't give any less than that. the new update is sooooooo annoying like I can't even play the songs that I like and I can't rewind son",
       "topic_ok": true
     },
@@ -800,15 +800,15 @@
       "human_topic": "downloads",
       "intent_ok": true,
       "model_intent": "complaint",
-      "model_needs_review": false,
+      "model_needs_review": true,
       "model_severity": 4,
-      "model_topic": "downloads",
+      "model_topic": "billing",
       "notes": "",
       "quote_is_substring": true,
       "review_id": "ac4e860a-c042-49cc-90f3-189591c336ac",
       "severity_ok": false,
       "text": "paying for subscribing but unable to play in offline mode really?",
-      "topic_ok": true
+      "topic_ok": false
     },
     {
       "all_ok": true,
@@ -829,22 +829,22 @@
       "topic_ok": true
     },
     {
-      "all_ok": false,
+      "all_ok": true,
       "ambiguous": true,
       "human_intent": "complaint|cancellation",
       "human_severity": "3|2",
       "human_topic": "usability",
       "intent_ok": true,
       "model_intent": "complaint",
-      "model_needs_review": false,
+      "model_needs_review": true,
       "model_severity": 3,
-      "model_topic": "billing",
+      "model_topic": "usability",
       "notes": "",
       "quote_is_substring": true,
       "review_id": "d2f3874f-d15d-4a2f-bb97-4f1213defa46",
       "severity_ok": true,
       "text": "Too expensive and the free version is pretty much unusable with constant ads... Every two or three songs.. Forget it",
-      "topic_ok": false
+      "topic_ok": true
     },
     {
       "all_ok": true,
@@ -906,37 +906,27 @@
       [
         "cancellation",
         "cancellation",
-        1
-      ],
-      [
-        "cancellation",
-        "unclear",
-        1
+        2
       ],
       [
         "complaint",
         "complaint",
-        19
-      ],
-      [
-        "complaint",
-        "request",
-        1
-      ],
-      [
-        "praise",
-        "complaint",
-        1
-      ],
-      [
-        "praise",
-        "praise",
         20
       ],
       [
         "praise",
-        "unclear",
+        "complaint",
         1
+      ],
+      [
+        "praise",
+        "praise",
+        19
+      ],
+      [
+        "praise",
+        "unclear",
+        2
       ],
       [
         "request",
@@ -946,12 +936,12 @@
       [
         "unclear",
         "complaint",
-        1
+        2
       ],
       [
         "unclear",
         "unclear",
-        4
+        3
       ]
     ],
     "topic": [
@@ -963,16 +953,16 @@
       [
         "catalog",
         "catalog",
-        5
+        4
       ],
       [
         "catalog",
         "other",
-        1
+        2
       ],
       [
         "downloads",
-        "downloads",
+        "billing",
         1
       ],
       [
@@ -1002,38 +992,33 @@
       ],
       [
         "usability",
-        "billing",
-        2
-      ],
-      [
         "usability",
-        "usability",
-        8
+        10
       ]
     ]
   },
   "summary": {
     "agreement": {
       "intent": 0.92,
-      "joint": 0.76,
-      "severity": 0.82,
+      "joint": 0.8,
+      "severity": 0.86,
       "topic": 0.9
     },
     "ambiguous_cases": 5,
     "human_labeled": 50,
-    "label_config": "jev-1.13.0+enrich-b1+schema-v1",
+    "label_config": "jev-1.13.0+enrich-p1+schema-v1",
     "missing_or_quarantined_predictions": 0,
     "needs_review_as_predictor": {
-      "flagged": 6,
+      "flagged": 7,
       "flagged_and_wrong": 3,
-      "wrong_total": 12
+      "wrong_total": 10
     },
     "note": "50 cases is a small diagnostic sample, not a population accuracy estimate. Ambiguous cases accept the recorded alternative label.",
     "of_total": 50,
-    "predictions_from": "runs/golden50_b10",
+    "predictions_from": "runs/golden50",
     "quote_exact_substring_rate": 1.0,
-    "sentiment_mae": 0.1369,
-    "sentiment_within_0.5": 0.92,
-    "severity_mae": 0.26
+    "sentiment_mae": 0.107,
+    "sentiment_within_0.5": 0.94,
+    "severity_mae": 0.2
   }
 }

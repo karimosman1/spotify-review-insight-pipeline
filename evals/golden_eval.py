@@ -84,8 +84,12 @@ def main():
     n = len(labeled)
     amb = [c for c in cases if c["ambiguous"]]
     flagged = [c for c in cases if c.get("model_needs_review")]
+    configs = sorted({p["label_config"] for p in preds.values() if p.get("label_config")})
     summary = {
-        "label_config": L.ENRICH_LABEL_CONFIG, "human_labeled": n, "of_total": len(human),
+        # read back from the predictions themselves, so this can never claim a config that did not
+        # produce these numbers
+        "label_config": configs[0] if len(configs) == 1 else configs,
+        "predictions_from": str(a.run_dir), "human_labeled": n, "of_total": len(human),
         "missing_or_quarantined_predictions": tot["missing"],
         "agreement": {f: round(tot[f] / n, 4) for f in ("topic", "intent", "severity", "joint")} if n else {},
         "severity_mae": round(sum(sev_err) / len(sev_err), 4) if sev_err else None,
