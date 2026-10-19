@@ -96,3 +96,39 @@ def run_downstream(out_dir):
     write_json(Path(out_dir) / "downstream_summary.json", {"grouping": GROUPING_VERSION, "memberships": len(m),
                                                            "issues": len(r), "claims": len(c), **t, "model_calls": 0})
     return t
+
+
+def rerank_from_export(records_path, membership_path, saved_ranking_path=None, out_path=None):
+    """Regenerate the baseline ranking from the committed grading export alone — no model, no
+    database, no git-ignored working files — and compare it with the saved ranking.csv.
+
+    Works on a fresh clone: grading/records.jsonl(.gz) + grading/membership.csv are all it needs."""
+    import gzip
+    import json
+    opener = gzip.open if str(records_path).endswith(".gz") else open
+    severity = {}
+    with opener(records_path, "rt", encoding="utf-8") as f:
+        for line in f:
+            r = json.loads(line)
+            if r.get("status") == "completed":
+                severity[r["review_id"]] = r["severity"]
+    agg = {}
+    with open(membership_path, encoding="utf-8") as f:
+        for m in csv.DictReader(f):
+            a = agg.setdefault(m["issue_id"], [0, 0])
+            a[0] += 1
+            a[1] += severity[m["review_id"]]
+    ordered = sorted(agg.items(), key=lambda kv: (-kv[1][1], kv[0]))
+    rows = [{"rank": str(i), "issue_id": iid, "complaint_count": str(n), "severity_sum": str(s),
+             "mean_severity": mean6(s, n), "priority_score": str(s)} for i, (iid, (n, s)) in enumerate(ordered, 1)]
+    if out_path:
+        with open(out_path, "w", newline="", encoding="utf-8") as f:
+            w = csv.DictWriter(f, fieldnames=list(rows[0]))
+            w.writeheader()
+            w.writerows(rows)
+    identical = None
+    if saved_ranking_path:
+        with open(saved_ranking_path, encoding="utf-8") as f:
+            saved = list(csv.DictReader(f))
+        identical = saved == rows
+    return rows, identical

@@ -1,0 +1,9 @@
+issue_id,complaint_count,severity_sum,mean_severity,complaint_records,cancellation_records,severity_4_or_5,needs_review
+ISS-access,1493,5927,3.969859,1384,109,1433,103
+ISS-billing,7412,21841,2.946708,6164,1248,536,1173
+ISS-catalog,2332,6627,2.841767,2215,117,322,611
+ISS-downloads,1026,3641,3.548733,961,65,588,227
+ISS-other,14389,29099,2.022309,13331,1058,248,1128
+ISS-playback,6121,22306,3.644176,5600,521,4431,933
+ISS-support,101,299,2.960396,84,17,34,43
+ISS-usability,12408,32340,2.606383,11284,1124,1397,2033

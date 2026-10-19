@@ -36,3 +36,6 @@ data/spotify_reviews_18months.csv
 data/raw/
 
 .DS_Store
+
+# local Claude Code settings (personal, not project config)
+.claude/settings.local.json

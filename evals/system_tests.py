@@ -133,9 +133,27 @@ def offline_tests():
           f"reader exposes only {sorted(cols)}")
 
     # 8. empty text is quarantined, never classified
-    recs = latest_records(ROOT / "runs/main100k")
+    from pipeline.common import load_run_records
+    recs = load_run_records(ROOT / "runs/main100k")
     empties = [r for r in recs.values() if r["status"] == "quarantined" and r.get("reason") == "empty_review_text"]
     check("empty_texts_quarantined", len(empties) == 13, f"{len(empties)} empty-text quarantines")
+
+    # 9b. memo checker regression: the swapped-ordering memo must stay rejected, the shipped one must pass
+    from pipeline.memo import build_evidence, validate_memo
+    run = ROOT / "runs/main100k"
+    rk = list(csv.DictReader((run / "ranking.csv").open(encoding="utf-8")))
+    cl = list(csv.DictReader((run / "claims.csv").open(encoding="utf-8")))
+    ev = build_evidence(run, rk)
+    scope = ("100,013 reviews sampled from 660,622 Spotify Google Play reviews (May 2022 - Nov 2023); "
+             "100,000 classified, 13 empty texts quarantined.")
+    old = json.loads((run / "memo_model_output.p2.json").read_text())["memo"]
+    new = json.loads((run / "memo_model_output.json").read_text())["memo"]
+    old_p, _ = validate_memo(old, rk, cl, ev, scope)
+    new_p, _ = validate_memo(new, rk, cl, ev, scope)
+    caught = [p for p in old_p if "access" in p.lower() or "playback" in p.lower()]
+    check("memo_checker_rejects_swapped_ordering", len(caught) >= 2 and not new_p,
+          f"memo-p2: {len(old_p)} problems incl. the access/playback swap; shipped memo-p4: "
+          f"{'passes' if not new_p else new_p}")
 
     # 9. synthetic cases are excluded from business aggregates
     membership_ids = {m["review_id"] for m in

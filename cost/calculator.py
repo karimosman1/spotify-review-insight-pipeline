@@ -77,6 +77,10 @@ def replay(write=True):
     full = settings["full_run"]
     workers = settings["max_workers"]
     comp = settings.get("full_corpus_comparison")
+    # Group naming and the memo run once per pipeline run, whatever the review count, so they are
+    # fixed overhead: priced from the cold pilot's actual usage and added once, never per review.
+    fixed = cost.get(("cold", "group"), Decimal(0)) + cost.get(("cold", "memo"), Decimal(0))
+
     scen = {}
     for name, s in settings["scenarios"].items():
         infl = s.get("token_inflation", 1.0)
@@ -84,9 +88,10 @@ def replay(write=True):
             texts = full["distinct_nonempty_texts"] if reuse else full["nonempty"]
             enr_n = -(-texts // batch) * (1 + enr_retry_rate + s["extra_retry_rate"])  # REQUESTS
             ver_n = texts * s["verify_fraction"]
-            api = (Decimal(enr_n * enr_tok * infl) + Decimal(ver_n * ver_tok * infl)) * in_rate
+            api = (Decimal(enr_n * enr_tok * infl) + Decimal(ver_n * ver_tok * infl)) * in_rate + fixed
             secs_1 = enr_n * sec_per_enrich + ver_n * sec_per_verify
             scen[(name, reuse)] = {"enrich_requests": round(enr_n), "verify_requests": round(ver_n),
+                                   "fixed_overhead_usd": float(round(fixed, 4)),
                                    "api_usd": float(round(api, 2)), "hours_1_worker": round(secs_1 / 3600, 1),
                                    f"hours_{workers}_workers_ideal": round(secs_1 / 3600 / workers, 1),
                                    "over_budget": float(api) > settings["spending_limit_full_run_usd"]}
@@ -97,7 +102,7 @@ def replay(write=True):
         s0 = settings["scenarios"]["base"]
         t = comp["distinct_nonempty_texts"]
         n = -(-t // batch) * (1 + enr_retry_rate)
-        corpus = {"api_usd": float(round((Decimal(n * enr_tok) + Decimal(t * s0["verify_fraction"] * ver_tok)) * in_rate, 2)),
+        corpus = {"api_usd": float(round((Decimal(n * enr_tok) + Decimal(t * s0["verify_fraction"] * ver_tok)) * in_rate + fixed, 2)),
                   "hours_1_worker": round(n * sec_per_enrich / 3600, 1)}
     report = render(settings, meas, rates, cost, units, attempts, cold, warm, completed, missing_usage,
                     enr_tok, ver_tok, enr_retry_rate, sec_per_enrich, scen, workers, batch, corpus)
@@ -147,7 +152,9 @@ def render(settings, meas, rates, cost, units, attempts, cold, warm, completed, 
           "", f"- Missing usage rows: {missing_usage} (counted at reservation estimate in the ledger, excluded above).",
           f"- Mean input tokens per request: enrich {enr_tok:.0f} (= {enr_tok / batch:.0f} per review at batch {batch}), verify {ver_tok:.0f}. Output tokens are unbilled.",
           f"- Measured enrich retry rate: {retry_rate:.3f}. Seconds per enrich request (1 worker): {sec_per_enrich:.3f}.",
-          "- Group, rank and memo are code-only in this version (0 model calls). Local compute: " + settings["local_compute"],
+          f"- Group naming and memo use Claude Haiku once per run (fixed overhead ${float(cost.get(('cold','group'),0)+cost.get(('cold','memo'),0)):.6f} in the cold pilot); "
+          f"warm run calls — group {mw.get('group_calls','?')}, memo {mw.get('memo_calls','?')} — come from the downstream result caches. "
+          "Rank is code-only. Local compute: " + settings["local_compute"],
           "", f"## Projection for the declared scope: {full['rows']:,} rows, {full['nonempty']:,} classified, "
           f"{full['empty_quarantines']} empty-text quarantines ({full.get('scope', '')})", "",
           f"Budget (editable): ${settings['spending_limit_full_run_usd']:.2f} | max workers {workers} | "
@@ -166,7 +173,8 @@ def render(settings, meas, rates, cost, units, attempts, cold, warm, completed, 
               f"least 100,000); the grader's coverage formula still divides by 660,622/660,609, so this is a disclosed "
               f"trade-off, not an accounting error. See README."]
     L += ["", "Assumptions: per-request tokens and seconds from the cold pilot; base/conservative verify, retry and "
-          "token-inflation rates from `settings.json`; fixed overhead (memo, grouping) is code-only and counted once (≈$0). "
+          "token-inflation rates from `settings.json`; fixed overhead (Haiku issue naming + memo, measured in the cold pilot) "
+          "is added once per run, never multiplied by review count. "
           "Parallel hours assume ideal scaling and are a model, not a measurement; rate limits (80 req/s) and retries "
           "can make it slower. Refresh after the 500- and 10,000-review checkpoints.", ""]
     return "\n".join(L)
@@ -177,9 +185,7 @@ def render(settings, meas, rates, cost, units, attempts, cold, warm, completed, 
 def pilot():
     from pipeline.common import file_sha, load_env, read_jsonl, write_jsonl, write_json
     from pipeline import labels as Lb
-    from pipeline.enrich import latest_records, run_enrich
-    from pipeline.rank import run_downstream
-    from pipeline.verify import run_verify
+    from pipeline.enrich import latest_records
 
     load_env(ROOT / ".env")
     settings = json.loads((HERE / "settings.json").read_text())
@@ -189,19 +195,24 @@ def pilot():
     measurements = {"input": settings["pilot_input"], "input_sha256": file_sha(inp),
                     "measured_at": time.strftime("%Y-%m-%d %H:%M:%S %Z"),
                     "enrich_label_config": Lb.ENRICH_LABEL_CONFIG, "verify_label_config": Lb.VERIFY_LABEL_CONFIG}
+    from pipeline.orchestrator import run_pipeline
     for run_type in ("cold", "warm"):
         out = base / run_type
         t0 = time.monotonic()
-        e = run_enrich(inp, out, max_spend=settings["pilot_run_cap_usd"], cache_path=cache_dir / "enrich_cache.jsonl",
-                       workers=1, batch_size=settings.get("pilot_batch_size", 1))
-        t1 = time.monotonic()
-        v = run_verify(inp, out, rate=settings["pilot_verify_fraction"], max_spend=settings["pilot_run_cap_usd"],
-                       cache_path=cache_dir / "verify_cache.jsonl")
-        t2 = time.monotonic()
-        d = run_downstream(out)
+        # The SAME orchestrator a real run uses: ingest, enrich, verify, group, rank, recommend.
+        res = run_pipeline(inp, out, paid=True, max_spend=settings["pilot_run_cap_usd"], workers=1,
+                           batch_size=settings.get("pilot_batch_size", 1),
+                           verify_rate=settings["pilot_verify_fraction"], cache_dir=cache_dir,
+                           scope_note="cost pilot: the fixed 100-review file cost_100.csv")
         wall = time.monotonic() - t0
+        if res.get("stopped"):
+            print(f"[pilot] {run_type} run stopped: {res['stopped']}")
+            print("[pilot] no evidence written — cost/ still holds the last complete pilot. Fix and rerun.")
+            return
+        e, v, tm = res["enrich"], res["verify"], res["timing"]
         recs = latest_records(out)
         st = [r["status"] for r in recs.values()]
+        mc = [c for c in read_jsonl(out / "calls.jsonl")]
         measurements[run_type] = {
             "rows": e["rows"], "unique_texts": len({r["source_sha256"] for r in recs.values()}),
             "records_completed": st.count("completed"), "records_quarantined": st.count("quarantined"),
@@ -209,14 +220,15 @@ def pilot():
             "enrich_requests": e.get("requests", 0), "enrich_unique_texts_called": e["pending_unique_texts"],
             "batch_size": e["batch_size"], "label_config": e["label_config"],
             "cache_hit_records": e["cache_hit_records"], "verify_sample": v["sample_size"],
-            "verify_requests": v["stats"].get("requests", 0), "workers": 1, "stop_reason": e.get("stop_reason"),
-            "wall_clock_s": round(wall, 3),
-            "stage_wall_s": {"enrich": round(t1 - t0, 3), "verify": round(t2 - t1, 3), **d},
-            "run_dir": str(out.relative_to(ROOT))}
-        print(f"[pilot] {run_type}: {measurements[run_type]['records_completed']} completed, "
-              f"{measurements[run_type]['enrich_requests']} enrich calls, {wall:.1f}s")
-        if e.get("stop_reason"):
-            print("[pilot] stopped early:", e["stop_reason"]); break
+            "verify_requests": v["stats"].get("requests", 0),
+            "group_calls": sum(c.get("role") == "group" for c in mc),
+            "memo_calls": sum(c.get("role") == "memo" for c in mc),
+            "memo_validation_passed": res["memo"]["validation"]["passed"],
+            "workers": 1, "stop_reason": e.get("stop_reason"), "wall_clock_s": round(wall, 3),
+            "stage_wall_s": tm, "run_dir": str(out.relative_to(ROOT))}
+        print(f"[pilot] {run_type}: {measurements[run_type]['records_completed']} completed | model calls: "
+              f"enrich {measurements[run_type]['enrich_requests']}, verify {measurements[run_type]['verify_requests']}, "
+              f"group {measurements[run_type]['group_calls']}, memo {measurements[run_type]['memo_calls']} | {wall:.1f}s")
 
     # ---- save evidence under cost/
     cold_recs = latest_records(base / "cold")
@@ -229,8 +241,10 @@ def pilot():
             if c.get("outcome") == "invalid_output":
                 calls.append({**c, "run_type": run_type}); continue
             calls.append({**c, "run_type": run_type})
+            model = c.get("model") or "jev-1.13.0"
             usage.append({"run_type": run_type, "run_id": c["run_id"], "request_id": c["request_id"], "stage": c["role"],
-                          "provider": "typesafe", "model": "jev-1.13.0", "outcome": c["outcome"],
+                          "provider": "anthropic" if model.startswith("claude") else "typesafe",
+                          "model": model, "outcome": c["outcome"],
                           "input_tokens": c.get("input_tokens") or 0, "output_tokens": c.get("output_tokens") or 0,
                           "usage_known": str(bool(c.get("usage_known"))).lower(), "duration_s": c.get("duration_s")})
     write_jsonl(HERE / "pilot_calls.jsonl", calls)

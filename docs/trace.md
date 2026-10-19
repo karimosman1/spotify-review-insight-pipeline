@@ -67,7 +67,7 @@ This single review contributes **4** to that severity sum. Remove it and the iss
 
 **6 · Memo claim** — role `memo`.
 
-The memo recommends `ISS-usability`: "Address usability and ad experience as top priority". Code validation passed: **True**.
+The memo recommends `ISS-usability`: "Prioritize usability issues: highest priority score driven by volume". Code validation passed: **True**.
 
 This review is counted inside the claims the memo cites: `C1`, `C2`, `C3`.
 
@@ -139,7 +139,7 @@ No contribution, per the membership rule above.
 
 **6 · Memo claim** — role `memo`.
 
-The memo recommends `ISS-usability`: "Address usability and ad experience as top priority". Code validation passed: **True**.
+The memo recommends `ISS-usability`: "Prioritize usability issues: highest priority score driven by volume". Code validation passed: **True**.
 
 **7 · Graded export** — present in `grading/records.jsonl.gz`: **True**.
 

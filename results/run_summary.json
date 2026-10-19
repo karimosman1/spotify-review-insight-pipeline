@@ -1,0 +1,141 @@
+{
+  "calls_by_role": {
+    "enrich": {
+      "attempts": 7814,
+      "cost_usd_estimate": 2.230118352,
+      "input_tokens": 53007474,
+      "outcome_failed": 14,
+      "outcome_succeeded": 7800,
+      "output_tokens": 16171043,
+      "usage_unknown": 14
+    },
+    "group": {
+      "attempts": 1,
+      "cost_usd_estimate": 0.004305,
+      "input_tokens": 2345,
+      "outcome_succeeded": 1,
+      "output_tokens": 392,
+      "usage_unknown": 0
+    },
+    "memo": {
+      "attempts": 6,
+      "cost_usd_estimate": 0.060594,
+      "input_tokens": 29584,
+      "outcome_succeeded": 6,
+      "output_tokens": 6202,
+      "usage_unknown": 0
+    },
+    "verify": {
+      "attempts": 1016,
+      "cost_usd_estimate": 0.03578673,
+      "input_tokens": 829114,
+      "outcome_failed": 9,
+      "outcome_succeeded": 1007,
+      "output_tokens": 188721,
+      "usage_unknown": 9
+    }
+  },
+  "cost_basis": "logged provider usage x rates in cost/rates.csv; provider billing is authoritative",
+  "downstream_summary": {
+    "claims": 9,
+    "group_s": 1.056,
+    "grouping": "group-topic-v1",
+    "issues": 8,
+    "memberships": 45282,
+    "memo_s": 0.7722,
+    "model_calls": 0,
+    "rank_s": 1.0916
+  },
+  "issues": {
+    "cost_usd": 0.004305,
+    "label_config": "claude-haiku-4-5+group-p1",
+    "usage": {
+      "input_tokens": 2345,
+      "output_tokens": 392
+    },
+    "validation": {
+      "passed": true,
+      "problems": []
+    }
+  },
+  "memo_model_output": {
+    "cache_hit": false,
+    "cost_usd": 0.023688,
+    "label_config": "claude-haiku-4-5+memo-p4",
+    "usage": {
+      "input_tokens": 11998,
+      "output_tokens": 2338
+    },
+    "validation": {
+      "claims_cited": [
+        "C1",
+        "C10",
+        "C11",
+        "C12",
+        "C16",
+        "C17",
+        "C18",
+        "C2",
+        "C3",
+        "C7",
+        "C8",
+        "C9"
+      ],
+      "passed": true,
+      "previous_verdict": {
+        "passed": false,
+        "problems": [
+          "recommendation: 'This is a high-volume, moderate-severity trade-off: the sheer number of complaints makes i' — ISS-usability is rank 2 by complaint_count, not 1"
+        ]
+      },
+      "problems": [],
+      "reviews_cited": [
+        "08a1f178-3e7a-4d65-9da3-dee293dd0061",
+        "30b1d1c0-e1a1-437f-a5cd-e1327467bda4",
+        "365c0fe6-e618-4c4a-9176-fbd48eb76d30",
+        "5e8201f3-0f71-44be-8eab-b8d9414496be"
+      ],
+      "validator": "memo-validator-v3"
+    }
+  },
+  "run_dir": "runs/main100k",
+  "stages": [
+    {
+      "already_done": 0,
+      "batch_size": 10,
+      "cache_hit_records": 0,
+      "completed": 100000,
+      "empty_quarantined_now": 13,
+      "input": "data/analysis_100k.csv",
+      "input_sha256": "13223ffc413a04fd81db33f5633f9bd75e997737ba9a8391d7b6ba97e0915522",
+      "label_config": "jev-1.13.0+enrich-b1+schema-v1",
+      "max_spend_usd": 3.2,
+      "pending_failed": 0,
+      "pending_records": 100000,
+      "pending_unique_texts": 77991,
+      "phase": "initial",
+      "quarantined": 0,
+      "requests": 7800,
+      "rows": 100013,
+      "run_id": "initial-20261006T203117-8ea0e4",
+      "run_spent_usd": 2.23011835,
+      "stage": "enrich",
+      "stop_reason": null,
+      "wall_clock_s": 839.908,
+      "workers": 8
+    }
+  ],
+  "total_cost_usd_estimate": 2.33080408,
+  "verify_report": {
+    "agreement": {
+      "intent": 0.8868,
+      "severity": 0.8709,
+      "topic": 0.9146
+    },
+    "compared": 1007,
+    "sample_rate": 0.01,
+    "stats": {
+      "requests": 1007
+    }
+  }
+}

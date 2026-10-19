@@ -116,3 +116,29 @@ def write_jsonl(path, rows):
         for r in rows:
             f.write(json.dumps(r, ensure_ascii=False, sort_keys=True) + "\n")
     os.replace(tmp, path)
+
+
+def load_run_records(run_dir, grading_dir=ROOT / "grading"):
+    """Final record per review_id. Prefers the run's working results.jsonl; on a fresh clone, where
+    that git-ignored file is absent, falls back to the committed grading export so offline tools
+    still work without regenerating anything."""
+    import gzip
+    p = Path(run_dir) / "results.jsonl"
+    if p.exists():
+        recs = {}
+        for r in read_jsonl(p):
+            recs[r["review_id"]] = r
+        return recs
+    g = Path(grading_dir) / "records.jsonl.gz"
+    with gzip.open(g, "rt", encoding="utf-8") as f:
+        return {r["review_id"]: r for r in (json.loads(l) for l in f)}
+
+
+def load_run_calls(run_dir, grading_dir=ROOT / "grading"):
+    """Model-call log, with the same fallback to the committed grading/calls.jsonl.gz."""
+    import gzip
+    p = Path(run_dir) / "calls.jsonl"
+    if p.exists():
+        return read_jsonl(p)
+    with gzip.open(Path(grading_dir) / "calls.jsonl.gz", "rt", encoding="utf-8") as f:
+        return [json.loads(l) for l in f]

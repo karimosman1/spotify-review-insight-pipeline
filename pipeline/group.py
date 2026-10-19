@@ -14,7 +14,7 @@ from pathlib import Path
 
 import anthropic
 
-from .common import JsonlLog, write_json
+from .common import JsonlLog, canonical, text_sha, write_json
 from .enrich import latest_records
 
 GROUP_MODEL = "claude-haiku-4-5"
@@ -36,7 +36,7 @@ Rules:
 - Claim no counts, numbers, causes or customer facts. Descriptions are qualitative only."""
 
 
-def run_group(out_dir, log=print):
+def run_group(out_dir, cache_path=None, log=print):
     out_dir = Path(out_dir)
     recs = latest_records(out_dir)
     calls = JsonlLog(out_dir / "calls.jsonl")
@@ -63,25 +63,35 @@ def run_group(out_dir, log=print):
         "required": ["issues"], "additionalProperties": False,
     }
 
-    client = anthropic.Anthropic()
-    t0 = time.monotonic()
-    resp = client.messages.create(
-        model=GROUP_MODEL, max_tokens=2000, system=SYSTEM,
-        messages=[{"role": "user", "content":
-                   "Name and describe these issues.\n\n" + json.dumps(pack, indent=2)}],
-        output_config={"format": {"type": "json_schema", "schema": schema}},
-    )
-    duration = time.monotonic() - t0
-    u = resp.usage
-    cost = u.input_tokens * 1.0e-6 + u.output_tokens * 5.0e-6
-    calls.append({"run_id": f"group-{time.strftime('%Y%m%dT%H%M%S')}", "role": "group", "phase": "initial",
-                  "review_ids": [], "model": GROUP_MODEL, "label_config": GROUP_LABEL_CONFIG,
-                  "request_id": resp._request_id, "outcome": "succeeded", "attempt": 1,
-                  "input_tokens": u.input_tokens, "output_tokens": u.output_tokens, "usage_known": True,
-                  "cost_usd_estimate": round(cost, 8), "duration_s": round(duration, 3),
-                  "consumed_artifacts": ["results.jsonl (bounded example quotes only)"]})
+    # Result cache keyed by the exact input pack + config: an unchanged rerun makes no model call.
+    user_msg = "Name and describe these issues.\n\n" + json.dumps(pack, indent=2)
+    key = text_sha(canonical({"config": GROUP_LABEL_CONFIG, "system": SYSTEM, "user": user_msg}))
+    cache = JsonlLog(cache_path or out_dir / "group_cache.jsonl")
+    hit = next((c for c in cache.read() if c["key"] == key), None)
+    if hit:
+        text, in_tok, out_tok, cost, duration = hit["text"], 0, 0, 0.0, 0.0
+        log(f"[group] cache hit — no model call")
+    else:
+        client = anthropic.Anthropic()
+        t0 = time.monotonic()
+        resp = client.messages.create(
+            model=GROUP_MODEL, max_tokens=2000, system=SYSTEM,
+            messages=[{"role": "user", "content": user_msg}],
+            output_config={"format": {"type": "json_schema", "schema": schema}},
+        )
+        duration = time.monotonic() - t0
+        in_tok, out_tok = resp.usage.input_tokens, resp.usage.output_tokens
+        cost = in_tok * 1.0e-6 + out_tok * 5.0e-6
+        text = next(b.text for b in resp.content if b.type == "text")
+        calls.append({"run_id": f"group-{time.strftime('%Y%m%dT%H%M%S')}", "role": "group", "phase": "initial",
+                      "review_ids": [], "model": GROUP_MODEL, "label_config": GROUP_LABEL_CONFIG,
+                      "request_id": resp._request_id, "outcome": "succeeded", "attempt": 1,
+                      "input_tokens": in_tok, "output_tokens": out_tok, "usage_known": True,
+                      "cost_usd_estimate": round(cost, 8), "duration_s": round(duration, 3),
+                      "consumed_artifacts": ["results.jsonl (bounded example quotes only)"]})
+        cache.append({"key": key, "label_config": GROUP_LABEL_CONFIG, "text": text})
 
-    proposed = json.loads(next(b.text for b in resp.content if b.type == "text"))["issues"]
+    proposed = json.loads(text)["issues"]
     got = {p["issue_id"] for p in proposed}
     problems = []
     if got != set(pack):
@@ -104,7 +114,7 @@ def run_group(out_dir, log=print):
         "grouping_rule": "one issue per primary topic; membership assigned in code, never by the model",
         "naming_model": GROUP_MODEL, "label_config": GROUP_LABEL_CONFIG,
         "validation": {"passed": not problems, "problems": problems},
-        "usage": {"input_tokens": u.input_tokens, "output_tokens": u.output_tokens},
+        "usage": {"input_tokens": in_tok, "output_tokens": out_tok}, "cache_hit": bool(hit),
         "cost_usd": round(cost, 8), "issues": accepted})
     log(f"[group] named {len(accepted)} issues with {GROUP_MODEL} | ${cost:.5f} | "
         f"{'validated' if not problems else 'PROBLEMS: ' + '; '.join(problems)}")

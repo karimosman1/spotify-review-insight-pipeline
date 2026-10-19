@@ -17,7 +17,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
-from pipeline.common import read_jsonl, row_sha, read_source_rows  # noqa: E402
+from pipeline.common import load_run_calls, load_run_records, read_jsonl, row_sha, read_source_rows  # noqa: E402
 from pipeline.enrich import latest_records  # noqa: E402
 
 
@@ -32,7 +32,7 @@ def trace(rid, run_dir, analysis_csv):
     out["source"] = {**src, "computed_row_sha256": row_sha(src)}
 
     # 2 — the enriched record
-    recs = latest_records(run_dir)
+    recs = load_run_records(run_dir)
     rec = recs.get(rid)
     if rec is None:
         sys.exit(f"{rid} has no record in {run_dir}")
@@ -43,7 +43,7 @@ def trace(rid, run_dir, analysis_csv):
     # of each unique-text group, so a duplicate text points back to its cache origin.
     origin = rec.get("cache_source_id") or rid
     call = None
-    for c in read_jsonl(run_dir / "calls.jsonl"):
+    for c in load_run_calls(run_dir):
         if c.get("role") == "enrich" and origin in (c.get("review_ids") or []):
             call = c
             break

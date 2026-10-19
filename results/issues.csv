@@ -1,0 +1,9 @@
+issue_id,topic,label,description,member_count
+ISS-access,access,Account access failures,"Reviewers report being locked out of accounts unexpectedly, unable to log in after updates, and experiencing account security issues like unauthorized access.",1493
+ISS-billing,billing,Premium paywall frustration,Reviewers complain that basic features have been restricted behind premium subscription requirements and express dissatisfaction with mandatory paid upgrades.,7412
+ISS-catalog,catalog,Missing songs and poor recommendations,"Reviewers report songs disappearing from playlists and liked songs, while song suggestions lack variety and become repetitive.",2332
+ISS-downloads,downloads,Offline download problems,"Reviewers struggle with downloading songs for offline listening, experience downloaded content being removed after updates or phone changes, and report storage management issues.",1026
+ISS-other,other,General app instability,"Reviewers describe the app as buggy, unstable, and experiencing deterioration in overall performance and user experience.",14389
+ISS-playback,playback,Playback interruptions,"Reviewers experience music stopping mid-playback, pauses between songs, false connectivity errors despite having internet, and difficulty playing songs uninterrupted.",6121
+ISS-support,support,Inadequate customer support,"Reviewers report difficulty reaching support, unhelpful or dismissive customer service interactions, and inaccessible contact channels.",101
+ISS-usability,usability,Excessive ads and restrictions,"Reviewers complain about frequent ad interruptions, aggressive unskippable ads, and disabled shuffle forcing users toward premium subscriptions.",12408
